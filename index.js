@@ -1,3 +1,17 @@
+import * as React from "https://cdn.skypack.dev/react@17.0.1";
+import * as ReactDOM from "https://cdn.skypack.dev/react-dom@17.0.1";
+
+
+const soundsName = {
+  heaterKit: "Heater Kit",
+  smoothPianoKit: "Smooth Piano Kit"
+};
+
+const soundsGroup = {
+  heaterKit: firstSoundsGroup,
+  smoothPianoKit: secondSoundsGroup
+}
+
 const KeyboardKey = ({ play, deactivateAudio, sound: { id, key, url, keyCode } }) => {
     const handleKeydown = (e) => {
       if(keyCode === e.keyCode) {
@@ -44,6 +58,26 @@ const KeyboardKey = ({ play, deactivateAudio, sound: { id, key, url, keyCode } }
       <button onClick={changeSoundGroup}>Change Sounds Group</button>
     </div>
   );
+
+  const changeSoundGroup = () => {
+    setSoundName("")
+    if(soundType === "heaterKit"){
+        setSoundType("smoothPianoKit");
+        setSounds(soundsGroup.smoothPianoKit);
+    } else {
+        setSoundType("heaterKit");
+        setSounds(soundsGroup.heaterKit);
+    }
+  }
+
+  return (
+    <div id="drum-machine">
+      {setKeyVolume()}
+      <div className="wrapper"></div>
+      changeSoundGroup={changeSoundGroup}
+          handleVolumeChange={handleVolumeChange} 
+      </div>
+    )
 
 
   ReactDOM.render(<App />, document.querySelector("#app"))
